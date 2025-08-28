@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // সকল "কপি" বোতাম নির্বাচন করা
     const copyButtons = document.querySelectorAll('.copy-btn');
 
     copyButtons.forEach(button => {
@@ -12,8 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
-
-    // সকল "কল" বোতাম নির্বাচন করা
     const callButtons = document.querySelectorAll('.call-btn');
 
     callButtons.forEach(button => {
@@ -21,10 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const numberToCall = button.dataset.number;
             const serviceName = button.dataset.serviceName;
             
-            // মোবাইল ডিভাইসে ফোন অ্যাপ খুলবে
+    
             window.location.href = `tel:${numberToCall}`;
             
-            // কল হিস্টোরি আপডেট করা
+            
             addToCallHistory(serviceName, numberToCall);
         });
     });

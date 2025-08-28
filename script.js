@@ -5,10 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const noHistoryMsg = document.getElementById('no-history-msg');
     const clearHistoryBtn = document.getElementById('clear-history-btn');
 
-    // Check if there are saved call history items in local storage
+    
     let callHistory = JSON.parse(localStorage.getItem('callHistory')) || [];
 
-    // Function to render the call history from the array
     const renderHistory = () => {
         historyList.innerHTML = '';
         if (callHistory.length === 0) {
@@ -29,41 +28,41 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Initial render
+    
     renderHistory();
 
-    // Event listener for Call buttons
+    
     callButtons.forEach(button => {
         button.addEventListener('click', () => {
             const numberToCall = button.dataset.number;
             const serviceName = button.dataset.serviceName;
             
-            // Add to call history array and local storage
+            
             const newHistoryItem = {
                 serviceName,
                 number: numberToCall,
                 time: new Date().toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' })
             };
             
-            // Add the new item to the top of the history list
+            
             callHistory.unshift(newHistoryItem);
             
-            // Keep the history list to a reasonable size (e.g., 10 items)
+            
             if (callHistory.length > 10) {
                 callHistory.pop();
             }
 
             localStorage.setItem('callHistory', JSON.stringify(callHistory));
             
-            // Re-render the history list
+            
             renderHistory();
             
-            // Attempt to make a call (on mobile devices)
+            
             window.location.href = `tel:${numberToCall}`;
         });
     });
 
-    // Event listener for Copy buttons
+    
     copyButtons.forEach(button => {
         button.addEventListener('click', () => {
             const numberToCopy = button.dataset.number;
@@ -75,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Event listener for Clear History button
     clearHistoryBtn.addEventListener('click', () => {
         localStorage.removeItem('callHistory');
         callHistory = [];
