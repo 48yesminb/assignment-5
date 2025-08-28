@@ -236,7 +236,56 @@
     const coinSpan = document.getElementById("coinCount");
     const historyList = document.getElementById("historyList");
 
-   
+    // Heart 
+    document.addEventListener("click", e=>{
+      if(e.target.closest(".fav-btn")){
+        heartCount++;
+        heartSpan.textContent = heartCount;
+      }
+    });
+
+    // Copy 
+    document.addEventListener("click", e=>{
+      if(e.target.closest(".copy-btn")){
+        let btn = e.target.closest(".copy-btn");
+        let number = btn.dataset.number;
+        navigator.clipboard.writeText(number);
+        alert("Copied: " + number);
+
+        copyCount++;
+        copySpan.textContent = copyCount;
+
+        coinCount -= 1;
+        coinSpan.textContent = coinCount;
+      }
+    });
+
+    // Call 
+    document.addEventListener("click", e=>{
+      if(e.target.closest(".call-btn")){
+        let btn = e.target.closest(".call-btn");
+        let name = btn.dataset.name;
+        let number = btn.dataset.number;
+
+        if(coinCount < 20){
+          alert("⚠️ আপনার পর্যাপ্ত পরিমাণে কয়েন নেই। কমপক্ষে 20 কয়েন লাগবে।");
+          return;
+        }
+
+        alert(`Calling ${name} (${number})`);
+        coinCount -= 20;
+        coinSpan.textContent = coinCount;
+
+        let li = document.createElement("li");
+        li.textContent = `${name} (${number}) - ${new Date().toLocaleTimeString()}`;
+        historyList.prepend(li);
+      }
+    });
+
+    // Clear history
+    document.getElementById("clearHistory").addEventListener("click", ()=>{
+      historyList.innerHTML = "";
+    });
   </script>
 
 
